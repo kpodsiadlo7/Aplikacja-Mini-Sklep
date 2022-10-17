@@ -8,14 +8,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name =  "\"GROUPS\"")
 public class Group {
 
     @Id
+    @NotNull
     @GeneratedValue
     @Column(name = "GROUP_ID", unique = true)
     private Long id;
@@ -31,4 +31,13 @@ public class Group {
             fetch = FetchType.EAGER
     )
     private List<Product> products;
+
+    Group(final String name, final List<Product> products) {
+        this.name = name;
+        this.products = products;
+    }
+
+    Group(final String name) {
+        this.name = name;
+    }
 }

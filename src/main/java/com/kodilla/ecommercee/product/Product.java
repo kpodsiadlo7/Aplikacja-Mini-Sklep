@@ -2,16 +2,15 @@ package com.kodilla.ecommercee.product;
 
 import com.kodilla.ecommercee.cart.Cart;
 import com.kodilla.ecommercee.group.Group;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
+@Data
 @NoArgsConstructor
-@Getter
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
@@ -45,4 +44,12 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "CART_ID")
     )
     private List<Cart> carts;
+
+    Product(final String name, final String description, final int quantity, final double price, final Group group) {
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+        this.group = group;
+    }
 }

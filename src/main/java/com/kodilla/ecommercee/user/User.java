@@ -7,24 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
 
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "USERS")
 public class User {
-
-    public User(String login, String password, String name, String surname, String address, String city, String phoneNumber, String email, boolean isBlock) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.city = city;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.isBlock = isBlock;
-    }
 
     @Id
     @NotNull
@@ -48,13 +37,31 @@ public class User {
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "IS_BLOCK")
-    private boolean isBlock;
+    private boolean blockStatus;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @Column(name = "TOKEN_ACTIVE_FOR")
+    private LocalTime time = LocalTime.of(0,0,0);
+    @Column(name = "HAVE_TOKEN")
+    private boolean token;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "CART_ID")
     private Cart cart;
+
+    public User(final String login, final String password, final String name, final String surname, final String address, final String city, final String phoneNumber, final String email) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.blockStatus = false;
+        this.token = false;
+    }
 }

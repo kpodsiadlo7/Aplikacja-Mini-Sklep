@@ -3,13 +3,16 @@ package com.kodilla.ecommercee.product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
-@Getter
-public class ProductDto {
+import java.util.List;
 
-    private Long id;
+@Getter
+@AllArgsConstructor
+public class ProductDto {
+    private Long productId;
     private String name;
     private String description;
     private int quantity;
     private double price;
+    private List<Long> cartList;
+    private Long groupId;
 }

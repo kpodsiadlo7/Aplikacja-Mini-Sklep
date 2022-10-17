@@ -1,40 +1,44 @@
 package com.kodilla.ecommercee.group;
 
-import org.springframework.http.MediaType;
+import com.kodilla.ecommercee.exceptions.NoFoundGroupException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/v1/groups")
 public class GroupController {
 
+    GroupService groupService;
+    GroupRepository groupRepository;
+
+    GroupController(final GroupService groupService, final GroupRepository groupRepository) {
+        this.groupService = groupService;
+        this.groupRepository = groupRepository;
+    }
+
     @GetMapping
-    public List<GroupDto> getGroups() {
-
-        return new ArrayList<>();
+    public ResponseEntity<List<GroupDto>> getAllGroups() {
+        return ResponseEntity.ok(groupService.getAllGroups());
     }
-
     @GetMapping(value = "{groupId}")
-    public GroupDto getGroup(@PathVariable Long groupId) {
-
-        return new GroupDto(1L, "test_group");
+    public ResponseEntity<GroupDto> getGroupById(@PathVariable Long groupId) throws NoFoundGroupException {
+        return ResponseEntity.ok(groupService.getGroupById(groupId));
     }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createGroup(@RequestBody GroupDto groupDto) {
-
+    @PostMapping
+    public ResponseEntity<Void> createGroup(@RequestBody GroupDto groupDto) {
+        groupService.createGroup(groupDto);
+        return ResponseEntity.ok().build();
     }
-
-    @PutMapping
-    public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
-
-        return new GroupDto(1L, "updated_test_group");
+    @PutMapping("{groupId}")
+    public ResponseEntity<Group> updateGroup(@RequestBody GroupDto groupDto, @PathVariable Long groupId) throws NoFoundGroupException {
+        return ResponseEntity.ok(groupService.updateGroupById(groupId,groupDto));
     }
-
     @DeleteMapping(value = "{groupId}")
-    public void deleteGroup(@PathVariable Long groupId) {
-
+    ResponseEntity<Void> deleteGroupById(@PathVariable Long groupId) throws NoFoundGroupException {
+        groupService.deleteGroupById(groupId);
+        return ResponseEntity.ok().build();
     }
 }

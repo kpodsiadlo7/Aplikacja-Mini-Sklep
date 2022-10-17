@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -27,14 +26,14 @@ public class OrderTestSuite {
     @Test
     public void createOrder() {
         //Given
-        Order order = new Order(LocalDateTime.now(), LocalDateTime.now(), "dfdfg", "sdsdsds");
+        Order order = new Order("dfdfg", "sdsdsds");
         //When
         orderRepository.save(order);
         //Then
         assertEquals(1, orderRepository.count());
-        assertTrue(orderRepository.existsById(order.getOrderId()));
+        assertTrue(orderRepository.existsById(order.getId()));
         //CleanUp
-        orderRepository.deleteById(order.getOrderId());
+        orderRepository.deleteById(order.getId());
     }
 
     @Test
@@ -59,9 +58,9 @@ public class OrderTestSuite {
         Order order = new Order();
         //When
         orderRepository.save(order);
-        Optional<Order> testOrderId = orderRepository.findById(order.getOrderId());
+        Optional<Order> testOrderId = orderRepository.findById(order.getId());
         //Then
-        assertEquals(order.getOrderId(), testOrderId.get().getOrderId());
+        assertEquals(order.getId(), testOrderId.get().getId());
         //Clean up
         orderRepository.deleteAll();
     }
@@ -69,15 +68,15 @@ public class OrderTestSuite {
     @Test
     public void deleteOrderById() {
         //Given
-        User user = new User("login", "password", "name", "surname", "address", "city", "666 666 666", "email@email.com", false);
-        Order order = new Order(LocalDateTime.now(), LocalDateTime.now(), "dfdfg", "sdsdsds");
+        User user = new User("login", "password", "name", "surname", "address", "city", "666 666 666", "email@email.com");
+        Order order = new Order("dfdfg", "sdsdsds");
         //When
         userRepository.save(user);
         orderRepository.save(order);
         //Then
         assertEquals(1, orderRepository.findAll().size());
 
-        orderRepository.deleteById(order.getOrderId());
+        orderRepository.deleteById(order.getId());
 
         assertEquals(0, orderRepository.findAll().size());
         assertEquals(1, userRepository.findAll().size());

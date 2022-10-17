@@ -22,4 +22,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     @Override
     void deleteById(Long productId);
+
+    @Override
+    List<Product> findAllById(Iterable<Long> longs);
 }

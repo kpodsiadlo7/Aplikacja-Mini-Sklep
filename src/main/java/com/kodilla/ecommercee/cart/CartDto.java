@@ -5,8 +5,8 @@ import lombok.Getter;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class CartDto {
     private Long cartId;
     private Long userId;

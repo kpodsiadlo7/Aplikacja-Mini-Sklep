@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OrderDto {
     private Long orderId;
+    private Long cartId;
+    private Long userId;
     private LocalDateTime dateOfOrder;
     private LocalDateTime shippingDate;
     private String shippingAddress;
