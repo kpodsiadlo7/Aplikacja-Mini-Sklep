@@ -1,6 +1,6 @@
 # APPLICATION INFROMATION
 
-#### Aplikacja do obsługi sklepu stworzona z grupą kurasntów, Prosta aplikacja do obsługi przy użyciu Postmana, stworzona wraz z grupą kursanów z wykorzystaniem Jiry jako platformy do zarządzania zadaniami. 
+#### Aplikacja do obsługi sklepu stworzona z grupą kurasntów, do obsługi przy użyciu Postmana. Stworzona wraz z grupą kursanów z wykorzystaniem Jiry jako platformy do zarządzania zadaniami. 
 ####
 Użyte technologie:
 * Spring boot
